@@ -34,6 +34,7 @@ public interface Analysis extends Switch
     void caseAElseIf(AElseIf node);
     void caseAElsestmtblock(AElsestmtblock node);
     void caseABaseExpr(ABaseExpr node);
+    void caseAStringExpr(AStringExpr node);
     void caseAAndExpr(AAndExpr node);
     void caseAOrExpr(AOrExpr node);
     void caseABaseFactor(ABaseFactor node);
@@ -53,7 +54,6 @@ public interface Analysis extends Switch
     void caseAModNumexpr(AModNumexpr node);
     void caseAObjVal(AObjVal node);
     void caseANumVal(ANumVal node);
-    void caseAStringVal(AStringVal node);
     void caseATrueVal(ATrueVal node);
     void caseAFalseVal(AFalseVal node);
     void caseAParenVal(AParenVal node);

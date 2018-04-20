@@ -207,6 +207,12 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
+    public void caseAStringExpr(AStringExpr node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
     public void caseAAndExpr(AAndExpr node)
     {
         defaultCase(node);
@@ -316,12 +322,6 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseANumVal(ANumVal node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAStringVal(AStringVal node)
     {
         defaultCase(node);
     }

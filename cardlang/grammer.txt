@@ -79,13 +79,13 @@ Productions
     if = {single} kwif expr kwthen stmtblock | {else} kwif expr kwthen stmtblock kwelse elsestmtblock;
     elsestmtblock = stmtblock;
 
-    expr = {base} factor | {and} expr kwand factor | {or} expr kwor factor;
+    expr = {base} factor | {string} string | {and} expr kwand factor | {or} expr kwor factor;
     factor = {base} compexpr | {not} kwnot compexpr;
 
     compexpr = {base} numexpr | {larger} [lexpr]:numexpr optlarger [rexpr]:numexpr | {largerequal} [lexpr]:numexpr optlargerequal [rexpr]:numexpr | {less} [lexpr]:numexpr optless [rexpr]:numexpr | {lessequal} [lexpr]:numexpr optlessequal [rexpr]:numexpr | {equal} [lexpr]:numexpr optequal [rexpr]:numexpr | {inequal} [lexpr]:numexpr optinequal [rexpr]:numexpr;
 
     numexpr = {base} val | {plus} numexpr optplus val | {minus} numexpr optminus val | {multi} numexpr optmulti val | {div} numexpr optdiv val | {mod} numexpr optmod val;
-    val = {obj} obj | {num} numeral | {string} string | {true} kwtrue | {false} kwfalse | {paren} leftparen expr rightparen;
+    val = {obj} obj | {num} numeral | {true} kwtrue | {false} kwfalse | {paren} leftparen expr rightparen;
 
     obj = {id} id | {field} id point obj;
     id = {lit} literal | {game} kwgame | {screen} kwscreen | {valid} kwvalid | {winnerid} kwwinnerid | {nextid} kwnextid | {subscript} id leftsqr expr rightsqr | {length} [lline]:line obj [rline]:line;

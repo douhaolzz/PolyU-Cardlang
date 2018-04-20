@@ -5,6 +5,7 @@ import java.util.Vector;
 class Blackjack extends GameEngine {
     boolean[] flags;
     int[] points;
+    Card card;
 
     public Blackjack(int num_players) {
         super(num_players);
@@ -26,7 +27,7 @@ class Blackjack extends GameEngine {
         // game-specific
         deck.shuffle();
         for (int i = 1; i <= numPlayers; ++i) {
-            Card c = deck.drawCard();
+            card = deck.drawCard();
             hands[i - 1].addCard(c);
 
             int rank = hands[i - 1].cards.get(1 - 1).getRank();
@@ -63,19 +64,19 @@ class Blackjack extends GameEngine {
 		}
         s=s+"\n\n";
         
-        String _screen = "";
+        String _Screen = "";
 
         // game-specific
-        _screen=_screen+"[Waiting]\n";
+        _Screen=_Screen+"[Waiting]\n";
         for (int i = 1; i <= numPlayers; ++i) {
             if (!flags[i - 1] || i == curPlayerID + 1) {
-                _screen=_screen + getPlayerChar(i - 1) + " ";
+                _Screen=_Screen + getPlayerChar(i - 1) + " ";
             }
         }
-        _screen = _screen + "\n\n";
+        _Screen = _Screen + "\n\n";
 
         // pre-defined
-        s=s+_screen;
+        s=s+_Screen;
         if (!isCompleted) {
             s=s+"*** Current player "+getPlayerChar(curPlayerID);
         }
@@ -100,14 +101,14 @@ class Blackjack extends GameEngine {
                 curPlayCards.addCard(curCards.get(pos));
             }
         }
-        boolean _valid = false;
+        boolean _Valid = false;
 
         // game-specific
         if (curPlayCards.cards.size() == 0) {
-            _valid = true;
+            _Valid = true;
             flags[curPlayerID] = false;
 
-            Card c = deck.drawCard();
+            card = deck.drawCard();
             hands[curPlayerID].addCard(c);
             int rank = hands[curPlayerID].cards.get(hands[curPlayerID].cards.size() - 1).getRank();
 
@@ -123,7 +124,7 @@ class Blackjack extends GameEngine {
         }
 
         // pre-defined
-        return _valid;
+        return _Valid;
     }
 
     public boolean isWinnerFound() {
@@ -132,58 +133,58 @@ class Blackjack extends GameEngine {
             return isCompleted;
         }
         isCompleted = false;
-        int _winnerID = -1;
+        int _WinnerID = -1;
 
         // game-specific
-        int numExit = 0;
-        int numOver = 0;
+        int i_numExit = 0;
+        int i_numOver = 0;
         for (int i = 1; i <= numPlayers; ++i) {
             if (flags[i - 1]) {
-                numExit = numExit + 1;
+                i_numExit = i_numExit + 1;
             }
             if (points[i - 1] >= 21) {
-                numOver = numOver + 1;
+                i_numOver = i_numOver + 1;
             }
         }
 
-        if (numExit == numPlayers || numExit == numPlayers - 1 && numOver == numPlayers - 1) {
-            _winnerID = 0;
+        if (i_numExit == numPlayers || i_numExit == numPlayers - 1 && i_numOver == numPlayers - 1) {
+            _WinnerID = 0;
             int max = 0;
             for (int i = 1; i <= numPlayers; ++i) {
                 if (points[i - 1] <= 21 && points[i - 1] > max) {
-                    _winnerID = i;
+                    _WinnerID = i;
                     max = points[i - 1];
                 }
             }
             for (int i = 1; i <= numPlayers; ++i) {
-                if (points[i - 1] == max && i != _winnerID) {
-                    _winnerID = 0;
+                if (points[i - 1] == max && i != _WinnerID) {
+                    _WinnerID = 0;
                     break;
                 }
             }
         }
         
         // pre-defined
-        if (_winnerID >= 0) {
+        if (_WinnerID >= 0) {
             isCompleted = true;
-            winnerID = _winnerID - 1;
+            winnerID = _WinnerID - 1;
         }
         return isCompleted;
     }
 
     public void nextTurn() {
         // pre-defined
-        int _nextID = curPlayerID + 1;
+        int _NextID = curPlayerID + 1;
 
         // game-specific
-        _nextID = (curPlayerID + 1) % numPlayers + 1;
-        while (flags[_nextID - 1]) {
-            _nextID = (_nextID) % numPlayers + 1;
+        _NextID = (curPlayerID + 1) % numPlayers + 1;
+        while (flags[_NextID - 1]) {
+            _NextID = (_NextID) % numPlayers + 1;
         }
-        flags[_nextID - 1] = true;
+        flags[_NextID - 1] = true;
 
         // pre-defined
-        curPlayerID = _nextID - 1;
+        curPlayerID = _NextID - 1;
         ui.setCurHand(hands[curPlayerID]);
         ui.drawHand();
     }
