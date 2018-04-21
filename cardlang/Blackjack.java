@@ -22,13 +22,13 @@ class Blackjack extends GameEngine {
             hands[z] = new Hand(z, getPlayerChar(z));
         }
         prevPlay = new Hand(-1, ' ');
-        int _game = 0;
+        int _Game = 0;
 
         // game-specific
         deck.shuffle();
         for (int i = 1; i <= numPlayers; ++i) {
             card = deck.drawCard();
-            hands[i - 1].addCard(c);
+            hands[i - 1].addCard(card);
 
             int rank = hands[i - 1].cards.get(1 - 1).getRank();
             if (rank > 10) {
@@ -38,10 +38,10 @@ class Blackjack extends GameEngine {
             }
         }
         flags[1 - 1] = true;
-        _game = 21;
+        _Game = 21;
 
         // pre-defined
-        displaySize = _game;
+        displaySize = _Game;
         curPlayerID = 0;
         winnerID = -1;
     }
